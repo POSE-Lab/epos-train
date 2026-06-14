@@ -1,0 +1,21 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y wget gnupg2
+#RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb && dpkg -i cuda-keyring_1.0-1_all.deb 
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb &&  dpkg -i cuda-repo-ubuntu1804_10.0.130-1_amd64.deb && \
+    apt-get update && \
+    apt-get install -y cuda-libraries-10-0
+
+COPY libcudnn7_7.6.0.64-1+cuda10.0_amd64.deb /tmp/
+COPY libcudnn7-dev_7.6.0.64-1+cuda10.0_amd64.deb /tmp/
+
+RUN apt-get update && apt-get install -y \
+    /tmp/libcudnn7_7.6.0.64-1+cuda10.0_amd64.deb \
+    /tmp/libcudnn7-dev_7.6.0.64-1+cuda10.0_amd64.deb && \
+    rm -f /tmp/*.deb
+
+# RUN dpkg -i /tmp/libcudnn7_7.6.0.64-1+cuda10.0_amd64.deb
+# RUN dpkg -i /tmp/libcudnn7-dev_7.6.0.64-1+cuda10.0_amd64.deb && \
+#     cp /tmp/cuda/include/cudnn.h /usr/local/cuda/include/ && \
+#     cp /tmp/cuda/lib64/libcudnn* /usr/local/cuda/lib64/ && \
+#     chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*

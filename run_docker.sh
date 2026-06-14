@@ -1,0 +1,1 @@
+docker run -it --gpus all -v $BOP_PATH:/home/datasets -v $STORE_PATH:/home/store -v $(pwd)/scripts:/home/epos/scripts epos-train:latest 
