@@ -81,3 +81,6 @@ conda activate epos && mkdir -p external/progressive-x/build && \
     cd external/progressive-x/build && \
     cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DCMAKE_CXX_STANDARD_REQUIRED=ON -DCMAKE_CXX_EXTENSIONS=OFF &&\
     make -j$(nproc)
+
+RUN source /opt/conda/etc/profile.d/conda.sh && \
+conda activate epos && pip uninstall -y gast && pip install gast==0.2.2
