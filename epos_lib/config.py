@@ -14,3 +14,4 @@ TF_MODELS_PATH = os.environ['TF_MODELS_PATH']
 
 # Folder with BOP datasets (https://bop.felk.cvut.cz/datasets/).
 BOP_PATH = os.environ['BOP_PATH']
+print("!!!!!!!!!!TF_MODELS_PATH", TF_MODELS_PATH)
