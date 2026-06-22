@@ -189,3 +189,7 @@ Models evaluated in the [BOP Challenge 2020](https://bop.felk.cvut.cz/challenges
 [ITODD](https://bop.felk.cvut.cz/media/data/epos_store/itodd-bop20-xc65-f64.zip),
 [HB](https://bop.felk.cvut.cz/media/data/epos_store/hb-bop20-xc65-f64.zip),
 [YCB-V](https://bop.felk.cvut.cz/media/data/epos_store/ycbv-bop20-xc65-f64.zip)
+
+## Docker
+
+`docker build -t epos-train:latest -f ./docker/Dockerfile --build-arg IMAGE_REPO=ghcr.io/athnzc/ .`

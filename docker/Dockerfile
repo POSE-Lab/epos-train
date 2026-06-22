@@ -1,4 +1,5 @@
-FROM ubuntu2004_cuda10:latest AS builder
+ARG IMAGE_REPO=ghcr.io/athnzc/
+FROM ${IMAGE_REPO}ubuntu2004_cuda10:latest AS builder
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     build-essential \
