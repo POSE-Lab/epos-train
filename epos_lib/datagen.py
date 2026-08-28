@@ -304,7 +304,7 @@ class Dataset(object):
       frag_sizes=frag_sizes,
       prepare_for_projection=self.prepare_for_projection)
     self.model_store.load_models()
-
+    tf.logging.info('DATASET NAME {}: {}'.format(self.dataset_name, self.dataset_name))
     if self.dataset_name == 'lmo':
       # For LM-O, create prediction channels for all 15 LM objects, so the
       # object ID corresponds to the channel ID and no mapping is necessary.

@@ -320,7 +320,8 @@ def save_correspondences(
   conf = obj_pred['conf'][sort_inds]
   conf_obj = obj_pred['conf_obj'][sort_inds]
   conf_frag = obj_pred['conf_frag'][sort_inds]
-
+  print(coord_2d.shape)
+  print(coord_3d.shape)
   # Add the predicted correspondences.
   pred_corr_num = len(coord_2d)
   txt += '{}\n'.format(pred_corr_num)
@@ -453,7 +454,20 @@ def process_image(
     # Make sure the coordinates are saved continuously in memory.
     coord_2d = np.ascontiguousarray(obj_corr['coord_2d'].astype(np.float64))
     coord_3d = np.ascontiguousarray(obj_corr['coord_3d'].astype(np.float64))
-
+    tf.logging.info(coord_2d.shape)
+    tf.logging.info(coord_3d.shape)
+    tf.logging.info(np.isnan(coord_2d).any())
+    tf.logging.info(np.isinf(coord_2d).any())
+    tf.logging.info(np.isnan(coord_3d).any())
+    tf.logging.info(np.isinf(coord_3d).any())
+    tf.logging.info(np.isnan(K).any())
+    tf.logging.info(np.isinf(K).any())
+    tf.logging.info("conf min {}".format(obj_corr['conf'].min()))
+    tf.logging.info("conf max {}".format(obj_corr['conf'].max()))
+    tf.logging.info("conf mean {}".format(obj_corr['conf'].mean()))
+    tf.logging.info("conf std {}".format(obj_corr['conf'].std()))
+    tf.logging.info("2D std {}".format(coord_2d.std(axis=0)))
+    tf.logging.info("3D std {}".format(coord_3d.std(axis=0)))
     if FLAGS.fitting_method == common.PROGRESSIVE_X:
       # If num_instances == 1, then only GC-RANSAC is applied. If > 1, then
       # Progressive-X is applied and up to num_instances poses are returned.
@@ -688,7 +702,9 @@ def main(unused_argv):
     else:
       tf_config = tf.ConfigProto()
       # tf_config.gpu_options.allow_growth = True  # Only necessary GPU memory.
-      tf_config.gpu_options.allow_growth = False
+      tf_config.gpu_options.allow_growth = True
+      #tf_config.gpu_options.per_process_gpu_memory_fraction = 0.9
+
 
     # Nodes that can use multiple threads to parallelize their execution will
     # schedule the individual pieces into this pool.
