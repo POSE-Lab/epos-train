@@ -86,6 +86,7 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'hb': list(range(1, 34)),  # Full HB dataset.
     'ycbv': list(range(1, 22)),
     'fractal_dataset_v3_refined_pbr': [1],
+    'fractal_dataset_v3_refined': [1],
     'fractal_tiny': [1],
     'IndustryShapesClassicv2': [1,2,3,4,5]
   }[dataset_name]
@@ -106,6 +107,7 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'hb': [6, 10, 11, 12, 13, 14, 18, 24, 29],
     'ycbv': [1, 13, 14, 16, 18, 19, 20, 21],
     'fractal_dataset_v3_refined_pbr': [1],
+    'fractal_dataset_v3_refined': [1],
     'fractal_tiny': [1],
     'IndustryShapesClassicv2': [1,2,3,4,5]
   }[dataset_name]
@@ -367,6 +369,15 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
       p['azimuth_range'] = (0, 2 * math.pi)
       p['elev_range'] = (-1.2788, 1.1291)  # (-73.27, 64.69) [deg].
 
+  elif dataset_name == 'fractal_dataset_v3_refined':
+    if split == "train_pbr":
+      p["scene_ids"] = {
+      "train_pbr": [],
+      "val": [1],
+      "test": [],
+}[split]
+    
+    p["im_size"] = (848, 480)
   elif dataset_name == 'fractal_dataset_v3_refined_pbr':
     if split == "train_pbr":
       p["scene_ids"] = {
