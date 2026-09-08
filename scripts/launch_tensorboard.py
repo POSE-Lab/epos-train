@@ -32,7 +32,8 @@ for model in model_list:
 tensorboard_cmd = [
   'tensorboard',
   '--logdir', logdir_str,
-  '--port', str(port)
+  '--port', str(port),
+  '--host', '127.0.0.1'
 ]
 
 print('Running: {}'.format(' '.join(tensorboard_cmd)))

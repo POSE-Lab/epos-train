@@ -88,7 +88,8 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'fractal_dataset_v3_refined_pbr': [1],
     'fractal_dataset_v3_refined': [1],
     'fractal_tiny': [1],
-    'IndustryShapesClassicv2': [1,2,3,4,5]
+    'IndustryShapesClassicv2': [1,2,3,4,5],
+    'essential2': [1]
   }[dataset_name]
 
   # ID's of objects with ambiguous views evaluated using the ADI pose error
@@ -109,7 +110,8 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'fractal_dataset_v3_refined_pbr': [1],
     'fractal_dataset_v3_refined': [1],
     'fractal_tiny': [1],
-    'IndustryShapesClassicv2': [1,2,3,4,5]
+    'IndustryShapesClassicv2': [1,2,3,4,5],
+    'essential2': [1]
   }[dataset_name]
 
   # T-LESS includes two types of object models, CAD and reconstructed.
@@ -125,6 +127,8 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     dataset_name = 'hb'
   if dataset_name=='IndustryShapesClassicv2': 
     model_type = 'cad'
+  if dataset_name=='essential2':
+    model_type = 'eval'
   # Name of the folder with object models.
   models_folder_name = 'models'
   if model_type is not None:
@@ -383,6 +387,16 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
       p["scene_ids"] = {
       "train_pbr": list(range(21)),
       "val": [],
+      "test": [],
+}[split]
+    
+    p["im_size"] = (848, 480)
+  
+  elif dataset_name == 'essential2':
+    if split == "train_pbr":
+      p["scene_ids"] = {
+      "train": [0,1],
+      "val": [0,1],
       "test": [],
 }[split]
     
