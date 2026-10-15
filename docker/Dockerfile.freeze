@@ -1,0 +1,3 @@
+FROM epos-train-nv2303
+
+RUN pip install tf2onnx onnxruntime pypickle
