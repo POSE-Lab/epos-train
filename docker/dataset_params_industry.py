@@ -71,6 +71,12 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
   :param model_type: Type of object models.
   :return: Dictionary with object model parameters for the specified dataset.
   """
+  print("====================================")
+  print("get_model_params()")
+  print("datasets_path:", datasets_path)
+  print("dataset_name:", repr(dataset_name))
+  print("model_type:", repr(model_type))
+  print("====================================")
   # Object ID's.
   obj_ids = {
     'lm': list(range(1, 16)),
@@ -88,8 +94,12 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'fractal_dataset_v3_refined_pbr': [1],
     'fractal_dataset_v3_refined': [1],
     'fractal_tiny': [1],
+    'fractalminimal': [1],
     'IndustryShapesClassicv2': [1,2,3,4,5],
-    'essential2': [1]
+    'essential2': [1],
+    'fractal_pbr_upright_copy': [1],
+    'fractal': [1],
+    'fractal_pbr_upright_single_copy': [1],
   }[dataset_name]
 
   # ID's of objects with ambiguous views evaluated using the ADI pose error
@@ -110,8 +120,12 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     'fractal_dataset_v3_refined_pbr': [1],
     'fractal_dataset_v3_refined': [1],
     'fractal_tiny': [1],
+    'fractalminimal': [1],
     'IndustryShapesClassicv2': [1,2,3,4,5],
-    'essential2': [1]
+    'essential2': [1],
+    'fractal_pbr_upright_copy': [1],
+    'fractal': [1],
+    'fractal_pbr_upright_single_copy': [1]
   }[dataset_name]
 
   # T-LESS includes two types of object models, CAD and reconstructed.
@@ -129,6 +143,14 @@ def get_model_params(datasets_path, dataset_name, model_type=None):
     model_type = 'cad'
   if dataset_name=='essential2':
     model_type = 'eval'
+  if dataset_name=='fractalminimal':
+    model_type = 'eval'
+  if dataset_name=='fractal_pbr_upright_copy':
+    model_type = 'cad'
+  if dataset_name=='fractal':
+    model_type = 'cad'
+  if dataset_name=='fractal_pbr_upright_single_copy':
+    model_type = 'cad'
   # Name of the folder with object models.
   models_folder_name = 'models'
   if model_type is not None:
@@ -380,12 +402,49 @@ def get_split_params(datasets_path, dataset_name, split, split_type=None):
       "val": [1],
       "test": [],
 }[split]
+
+  elif dataset_name == 'fractal_pbr_upright_copy':
+    if split == "train":
+      p["scene_ids"] = {
+      "train": [0, 1, 2, 3, 4],
+      "val": [0, 1, 2, 3, 4],
+      "test": [],
+}[split]
+    
+    p["im_size"] = (848, 480)
+  
+  elif dataset_name == 'fractal_pbr_upright_single_copy':
+    if split == "train":
+      p["scene_ids"] = {
+      "train": [0],
+      "val": [0],
+      "test": [],
+}[split]
     
     p["im_size"] = (848, 480)
   elif dataset_name == 'fractal_dataset_v3_refined_pbr':
     if split == "train_pbr":
       p["scene_ids"] = {
       "train_pbr": list(range(21)),
+      "val": [],
+      "test": [],
+}[split]
+    
+    p["im_size"] = (848, 480)
+  elif dataset_name == 'fractalminimal':
+    if split == "train":
+      p["scene_ids"] = {
+      "train": [0],
+      "val": [0],
+      "test": [],
+}[split]
+    
+    p["im_size"] = (848, 480)
+  
+  elif dataset_name == 'fractal':
+    if split == "train":
+      p["scene_ids"] = {
+      "train": [0],
       "val": [],
       "test": [],
 }[split]
